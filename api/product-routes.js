@@ -7,6 +7,24 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
+  try {
+    const allProducts = await Product.findAll({
+      include: [{ model: Product }, { model: ProductTag },{ model: Category },],
+      attributes: {
+        include: [
+          [
+            sequelize.literal(
+              '(SELECT SUM(mileage) FROM car WHERE car.driver_id = driver.id)'
+            ),
+            'totalMileage',
+          ],
+        ],
+      },
+    });
+    res.status(200).json(allProducts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // get one product
