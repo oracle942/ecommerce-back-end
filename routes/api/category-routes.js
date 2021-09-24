@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
       {include: [{model: Product}]
     })
   
-    if (!singleTag) {
+    if (!oneCategory) {
       res.status(400).json({message: 'No tag category found with that ID!'});
       return;
     }
@@ -39,8 +39,7 @@ router.post('/', async (req, res) => {
   // create a new category
   try {
     const catData = await Category.create({
-      id: req.body.id,
-      name: req.body.name,
+      category_name: req.body.category_name,
     });
     res.status(200).json(catData);
   } catch (err) {
