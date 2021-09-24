@@ -19,12 +19,12 @@ Product.init(
   },
   
   product_name: {
-    type: DataType.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   
   price: {
-    type: DataType.DECIMAL,
+    type: DataTypes.DECIMAL,
     allowNull: false,
     validation: {
     isDecimal: true,
@@ -40,9 +40,10 @@ Product.init(
   },
 
   category_id: {
-    type: DataType.INTEGER,
+    type: DataTypes.INTEGER,
     references: {
-    category: 'id',
+    model: 'category',
+    key: 'id',
     }
   }
 },
